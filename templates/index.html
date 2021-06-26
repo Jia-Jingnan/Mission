@@ -1,17 +1,5 @@
-
-<!doctype html>
-<html lang="zh-CN">
-<head>
-    <title>首页</title>
-
-    {% load static %}
-    <link href="{% static 'bootstrap-3.4.1-dist/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'bootstrap-3.4.1-dist/css/signin.css' %}" rel="stylesheet" type="text/css">
-    <script src="{% static 'bootstrap-3.4.1-dist/js/bootstrap.min.js' %}"></script>
-</head>
-
-<body>
-
+{% extends 'base.html' %}
+{% block content %}
 <div class="container">
     <form class="form-signin" action="/login/" method="post">
         <h2 class="form-signin-heading text-center">测试平台</h2>
@@ -23,5 +11,4 @@
         <button class="btn btn-success btn-primary btn-block" type="submit">Sign in</button>
     </form>
 </div>
-</body>
-</html>
+{% endblock %}
