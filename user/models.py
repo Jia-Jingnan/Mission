@@ -10,6 +10,10 @@ class Project(models.Model):
     status = models.BooleanField('项目状态', default=True)
     create_time = models.DateTimeField('创建时间', auto_now=True)
 
+    # 重写toString方法
+    def __str__(self):
+        return self.name
+
 
 class Module(models.Model):
     # 项目模块表
@@ -19,3 +23,7 @@ class Module(models.Model):
     describe = models.TextField('模块描述', default='')
     # 自动添加创建时间
     create_time = models.DateTimeField('创建时间', auto_now=True)
+
+    # 重写toString方法
+    def __str__(self):
+        return self.name
