@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    {% load static %}
+    <link rel="icon" href="{% static 'img/favicon.ico' %}">
+    <title>测试平台</title>
+    <link href="{% static 'bootstrap-3.4.1-dist/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'bootstrap-3.4.1-dist/css/signin.css' %}" rel="stylesheet" type="text/css">
+    <script src="{% static 'bootstrap-3.4.1-dist/js/bootstrap.min.js' %}"></script>
+    <link href="{% static 'bootstrap-3.4.1-dist/css/dashboard.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    {% block content %}
+    {% endblock %}
+</body>
+
+</html>
