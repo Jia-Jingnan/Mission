@@ -15,7 +15,7 @@ def login(request):
         password = request.POST.get('password', '')
 
         if username == '' or password == '':
-            return render(request, 'login.html', context)
+            return render(request, 'index.html', context)
 
         else:
             user = auth.authenticate(username=username, password=password)
