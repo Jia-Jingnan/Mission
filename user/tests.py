@@ -1,9 +1,11 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
+from django.test import Client
 
 
 # Create your tests here.
 # 针对模型的测试：测试增删改查
+# 运行测试时不会真的调用数据库，会创建一个独立的环境，不会在开发环境生成垃圾数据
 class UserTestCase(TestCase):
 
     # 初始化
@@ -36,5 +38,20 @@ class UserTestCase(TestCase):
         self.assertEqual(len(users), 0)
 
 
+# 针对视图的测试
+class IndexTestCase(TestCase):
 
-# 运行测试时不会真的调用数据库，会创建一个独立的环境，不会在开发环境生成垃圾数据
+    def setUp(self):
+        # 初始化一个client
+        self.client = Client()
+
+    def test_index(self):
+        response = self.client.get("/")
+        # 打印出html页面
+        print('index响应内容为：', response.content.decode('utf-8'))
+        self.assertEqual(response.status_code, 200)
+        # 断言Template模版是否有用到
+        self.assertTemplateUsed(response, 'index.html')
+
+
+
