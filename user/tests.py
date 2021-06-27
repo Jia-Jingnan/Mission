@@ -99,3 +99,16 @@ class LoginTestCase(TestCase):
         # self.assertTemplateUsed(response, 'index.html')
 
 
+class LogoutTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        # 创建用户,后续登陆使用
+        User.objects.create_user('thor', 'thor@asgard.com', 'thor')
+        # 登陆
+        data = {'username': 'thor', 'password': 'thor'}
+        response = self.client.post('/login/', data)
+
+    def test_logout(self):
+        response = self.client.get('/logout/')
+        html_res = response.content.decode('utf-8')
+        self.assertEqual(response.status_code, 302)
