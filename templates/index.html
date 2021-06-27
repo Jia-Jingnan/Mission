@@ -2,13 +2,13 @@
 {% block content %}
 <div class="container">
     <form class="form-signin" action="/login/" method="post">
-        <h2 class="form-signin-heading text-center">测试平台</h2>
+        <h2 class="form-signin-heading text-center">Mission</h2>
         <label for="inputEmail" class="sr-only">username</label>
         <input type="text" id="inputUsername" name="username" class="form-control" placeholder="username" required autofocus>
-        <label for="inputPassword" class="sr-only">password</label><br>
-        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="password" required>
+        <label for="inputPassword" class="sr-only" >password</label>
+        <input type="password" id="inputPassword" name="password" style="margin-top: 5px" class="form-control" placeholder="password" required>
         <p class="text-center bg-danger">{{ error }}</p>
-        <button class="btn btn-success btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-primary btn-block" type="submit">Sign in</button>
     </form>
 </div>
 {% endblock %}
