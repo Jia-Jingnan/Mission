@@ -22,9 +22,6 @@ def login(request):
             # context = {'user': user}
             if user is not None:
                 auth.login(request,user) # 记录用户登陆状态
-                # return render(request, 'project.html', context)
-                # response = HttpResponseRedirect('/project_manage/')
-                # response.set_cookie('user', username, 3600) # 添加浏览器cookie
                 request.session['user'] = username
                 return HttpResponseRedirect('/project/list/')
             else:

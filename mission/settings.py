@@ -126,6 +126,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+APPEND_SLASH=False
+
 
 # 导入local_settings.py配置文件
 try:
