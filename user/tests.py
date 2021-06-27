@@ -45,6 +45,7 @@ class IndexTestCase(TestCase):
         # 初始化一个client
         self.client = Client()
 
+
     def test_index(self):
         response = self.client.get("/")
         # 打印出html页面
@@ -53,5 +54,48 @@ class IndexTestCase(TestCase):
         # 断言Template模版是否有用到
         self.assertTemplateUsed(response, 'index.html')
 
+
+class LoginTestCase(TestCase):
+
+    def setUp(self):
+        # 初始化一个client
+        self.client = Client()
+        # 创建用户,后续登陆使用
+        User.objects.create_user('thor', 'thor@asgard.com', 'thor')
+
+    # 用户名密码为空
+    def test_login_null(self):
+        data = {'username': '', 'password': ''}
+        response = self.client.post('/login/', data)
+        # 转成html页面
+        html_res = response.content.decode('utf-8')
+        print(html_res)
+        print(response)
+        # self.assertEqual(response.status_code, 200)
+        # self.assertTemplateUsed(response, 'index.html')
+        self.assertIn('用户名或密码错误', 'index.html')
+
+    # 用户名密码错误
+    def test_login_null(self):
+        data = {'username': 'admin', 'password': 'admin1'}
+        response = self.client.post('/login/', data)
+        # 转成html页面
+        html_res = response.content.decode('utf-8')
+        print(html_res)
+        print(response)
+        # self.assertEqual(response.status_code, 200)
+        # self.assertTemplateUsed(response, 'index.html')
+        self.assertIn('用户名或密码错误', 'index.html')
+
+    # 正确用户名密码
+    def test_login_null(self):
+        data = {'username': 'thor', 'password': 'thor'}
+        response = self.client.post('/login/', data)
+        # 转成html页面
+        html_res = response.content.decode('utf-8')
+        print(html_res)
+        print(response)
+        self.assertEqual(response.status_code, 302)
+        # self.assertTemplateUsed(response, 'index.html')
 
 
