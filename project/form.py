@@ -2,7 +2,7 @@
 # Date:    2021/6/27
 # Desc:     处理form表单的模块
 from django import forms
-from project.models import Project
+from project.models import Project, Module
 
 
 # class ProjectForm(forms.Form):
@@ -15,3 +15,10 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ['name', 'describe', 'status']
+
+
+class ModuleForm(forms.ModelForm):
+    # form展示的字段
+    class Meta:
+        model = Module
+        exclude = ['create_time']
