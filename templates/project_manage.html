@@ -45,7 +45,7 @@
                 {% for project in project_recent %}
                     <div class="col-xs-6 col-sm-3 placeholder">
                         <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                        <h4>{{ project.name }}</h4>
+                        <a href="/project/edit/{{ project.id }}"><h4>{{ project.name }}</h4></a>
                         <span class="text-muted">{{ project.describe }}</span>
                     </div>
                 {% endfor %}
@@ -79,8 +79,8 @@
                         <td>{{ project.status }}</td>
                         <td>{{ project.create_time }}</td>
                         <td>
-                            <a href="/project/edit/" ><button type="button" class="btn btn-info">编辑</button></a>
-                            <a href="#" <button type="button" class="btn btn-danger">删除</button></a>
+                            <a href="/project/edit/{{ project.id }}" ><button type="button" class="btn btn-info">编辑</button></a>
+                            <a href="/project/delete/{{ project.id }}"><button type="button" class="btn btn-danger">删除</button></a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -96,15 +96,13 @@
         {% if type == 'add' %}
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <h3 class="sub-header">创建项目</h3>
-{#                <div>#}
-{#                    <button type="button" class="btn btn-danger" style="float:right">删除项目</button>#}
-{#                    <button type="button" class="btn btn-primary" onclick="window.location.href='/project/add'">创建项目</button>#}
-{#                </div>#}
                 <div class="table-responsive">
-
                     <form class="navbar-form navbar-left" role="search" action="/project/add/" method="post">
                         {{ form.as_p }}
-                        <button type="submit" class="btn btn-default">创建</button>
+                        <button type="submit" class="btn btn-default"
+                        onclick="window.location.href='/project/list/'"
+                        style="margin-right: 10px">取消</button>
+                        <button type="submit" class="btn btn-success">创建</button>
                     </form>
                 </div>
 
@@ -114,14 +112,13 @@
         {#        编辑项目页#}
         {% if type == 'edit' %}
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h3 class="sub-header">创建项目</h3>
-                {#                <div>#}
-                {#                    <button type="button" class="btn btn-danger" style="float:right">删除项目</button>#}
-                {#                    <button type="button" class="btn btn-primary" onclick="window.location.href='/project/add'">创建项目</button>#}
-                {#                </div>#}
+                <h3 class="sub-header">编辑项目</h3>
                 <div class="table-responsive">
 
-                    <p>创建项目页面</p>
+                    <form class="navbar-form navbar-left" role="search" action="/project/edit/" method="post">
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-success">保存</button>
+                    </form>
                 </div>
 
             </div>
