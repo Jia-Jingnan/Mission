@@ -28,33 +28,21 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="#">项目管理</a></li>
-                <li><a href="#">模块管理</a></li>
+                <li><a href="/project/list">项目管理</a></li>
+                <li class="active"><a href="#">模块管理</a></li>
                 <li><a href="">用例管理</a></li>
                 <li><a href="">任务管理</a></li>
                 <li><a href="">Mock管理</a></li>
                 <li><a href="">测试工具</a></li>
             </ul>
         </div>
-{#        项目列表页#}
+{#        模块列表页#}
         {% if type == 'list' %}
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h3 class="page-header">最近打开</h3>
-
-            <div class="row placeholders">
-                {% for project in project_recent %}
-                    <div class="col-xs-6 col-sm-3 placeholder">
-                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                        <a href="/project/edit/{{ project.id }}"><h4>{{ project.name }}</h4></a>
-                        <span class="text-muted">{{ project.describe }}</span>
-                    </div>
-                {% endfor %}
-            </div>'
-
             <div>
                 <h3 class="sub-header">
-                    项目列表
-                    <button type="button" class="btn btn-primary" style="float: right" onclick="window.location.href='/project/add'">创建</button>
+                    模块列表
+                    <button type="button" class="btn btn-primary" style="float: right" onclick="window.location.href='/project/module/add'">创建</button>
                 </h3>
 
             </div>
@@ -65,22 +53,22 @@
                         <th>Name</th>
                         <th>ID</th>
                         <th>Desc</th>
-                        <th>Status</th>
+                        <th>Project</th>
                         <th>CreateTime</th>
                         <th>Operation</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for project in projects %}
+                    {% for module in modules %}
                     <tr>
-                        <td>{{ project.name }}</td>
-                        <td>{{ project.id }}</td>
-                        <td>{{ project.describe }}</td>
-                        <td>{{ project.status }}</td>
-                        <td>{{ project.create_time }}</td>
+                        <td>{{ module.name }}</td>
+                        <td>{{ module.id }}</td>
+                        <td>{{ module.describe }}</td>
+                        <td>{{ module.project }}</td>
+                        <td>{{ module.create_time | date:'Y-m-d H:i:s' }}</td>
                         <td>
-                            <a href="/project/edit/{{ project.id }}" ><button type="button" class="btn btn-info">编辑</button></a>
-                            <a href="/project/delete/{{ project.id }}"><button type="button" class="btn btn-danger">删除</button></a>
+                            <a href="/project/module/edit/{{ module.id }}/" ><button type="button" class="btn btn-info">编辑</button></a>
+                            <a href="/project/module/delete/{{ module.id }}/"><button type="button" class="btn btn-danger">删除</button></a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -92,15 +80,15 @@
         {% endif %}
 
 
-        {#        创建项目页#}
+        {#        创建模块页#}
         {% if type == 'add' %}
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h3 class="sub-header">创建项目</h3>
+                <h3 class="sub-header">创建模块</h3>
                 <div class="table-responsive">
-                    <form class="navbar-form navbar-left" role="search" action="/project/add/" method="post">
-                        {{ form.as_p }}
+                    <form class="navbar-form navbar-left" role="search" action="/project/module/add/" method="post">
+                        {{ module_form.as_p }}
                         <button type="submit" class="btn btn-default"
-                        onclick="window.location.href='/project/list/'"
+                        onclick="window.location.href='/project/module/list/'"
                         style="margin-right: 10px">取消</button>
                         <button type="submit" class="btn btn-success">创建</button>
                     </form>
@@ -109,21 +97,18 @@
             </div>
         {% endif %}
 
-        {#        编辑项目页#}
+        {#        编辑模块页#}
         {% if type == 'edit' %}
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h3 class="sub-header">编辑项目</h3>
+                <h3 class="sub-header">编辑模块</h3>
                 <div class="table-responsive">
-
-                    <form class="navbar-form navbar-left" role="search" action="/project/edit/" method="post">
-                        {{ form.as_p }}
+                    <form action="/project/module/edit/{{ mid }}/" method="post">
+                        {{ module_form.as_p }}
                         <button type="submit" class="btn btn-success">保存</button>
                     </form>
                 </div>
-
             </div>
         {% endif %}
-
 
     </div>
 </div>
