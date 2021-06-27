@@ -1,11 +1,131 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Project</title>
-</head>
-<body>
-    <h1>Welcome To Project List</h1>
-    <p>{{ user }}</p>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+
+<nav class="navbar navbar-inverse navbar-fixed-top" xmlns="http://www.w3.org/1999/html">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Misson</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">{{ user }}</a></li>
+                <li><a href="/logout/">退出</a></li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" placeholder="Search...">
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="#">项目管理</a></li>
+                <li><a href="/project/module/list/">模块管理</a></li>
+                <li><a href="">用例管理</a></li>
+                <li><a href="">任务管理</a></li>
+                <li><a href="">Mock管理</a></li>
+                <li><a href="">测试工具</a></li>
+            </ul>
+        </div>
+{#        项目列表页#}
+        {% if type == 'list' %}
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h3 class="page-header">最近打开</h3>
+
+            <div class="row placeholders">
+                {% for project in project_recent %}
+                    <div class="col-xs-6 col-sm-3 placeholder">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+                        <a href="/project/edit/{{ project.id }}/"><h4>{{ project.name }}</h4></a>
+                        <span class="text-muted">{{ project.describe }}</span>
+                    </div>
+                {% endfor %}
+            </div>'
+
+            <div>
+                <h3 class="sub-header">
+                    项目列表
+                    <button type="button" class="btn btn-primary" style="float: right" onclick="window.location.href='/project/add'">创建</button>
+                </h3>
+
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>ID</th>
+                        <th>Desc</th>
+                        <th>Status</th>
+                        <th>CreateTime</th>
+                        <th>Operation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for project in projects %}
+                    <tr>
+                        <td>{{ project.name }}</td>
+                        <td>{{ project.id }}</td>
+                        <td>{{ project.describe }}</td>
+                        <td>{{ project.status }}</td>
+                        <td>{{ project.create_time  | date:'Y-m-d H:i:s' }}</td>
+                        <td>
+                            <a href="/project/edit/{{ project.id }}/" ><button type="button" class="btn btn-info">编辑</button></a>
+                            <a href="/project/delete/{{ project.id }}/"><button type="button" class="btn btn-danger">删除</button></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        {% endif %}
+
+
+        {#        创建项目页#}
+        {% if type == 'add' %}
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h3 class="sub-header">创建项目</h3>
+                <div class="table-responsive">
+                    <form action="/project/add/" method="post">
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-default"
+                        onclick="window.location.href='/project/list/'"
+                        style="margin-right: 10px">取消</button>
+                        <button type="submit" class="btn btn-success">创建</button>
+                    </form>
+                </div>
+
+            </div>
+        {% endif %}
+
+        {#        编辑项目页#}
+        {% if type == 'edit' %}
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h3 class="sub-header">编辑项目</h3>
+                <div class="table-responsive">
+
+                    <form  action="/project/edit/{{pid}}/" method="post">
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-success">保存</button>
+                    </form>
+                </div>
+
+            </div>
+        {% endif %}
+
+
+    </div>
+</div>
+{% endblock %}
+
