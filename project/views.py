@@ -59,11 +59,37 @@ def add(request):
 
     return render(request, 'project_manage.html', context)
 
+@login_required
+def edit(request, pid):
 
-def edit(request):
     # 获取要编辑的项目的id
-    pass
+    print(pid)
+    if request.method == 'POST':
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            # 查询原数据
+            project = Project.objects.get(id=pid)
+            # 从表单中获取新的数据
+            project.name = form.cleaned_data['name']
+            project.describe = form.cleaned_data['describe']
+            project.status = form.cleaned_data['status']
+            project.save()
+            return HttpResponseRedirect('/project/list')
+    else:
+        if pid:
+            form = ProjectForm(
+                instance = Project.objects.get(id=pid)
+            )
+    context = {
+        'type': 'edit',
+        'form': form
+    }
 
+    return render(request, 'project_manage.html', context)
 
-def delete(request):
-    pass
+@login_required
+def delete(request, pid):
+    # 查询出数据,并执行删除操作
+    Project.objects.get(id=pid).delete()
+    # 重定向至列表页面
+    return HttpResponseRedirect('/project/list')
