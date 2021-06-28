@@ -4,6 +4,7 @@ from django.test import Client
 # 模版Template测试导入的相关的包
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver import Chrome
+# form project.models imprt Project
 
 
 # Create your tests here.
@@ -120,12 +121,19 @@ class LogoutTestCase(TestCase):
 # 针对模版Template测试
 class LoginTemplateTestCase(StaticLiveServerTestCase):
     # fixtures = ['user-data.json']
-    
+
+    def setUp(self):
+        # 初始化可以登陆的用户
+        User.objects.create_user('thor', 'thor@gmail.com', 'thor')
+        # 添加项目数据
+        # Project.objects.create(name='Coles', describe='Coles Online')
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
         cls.driver = Chrome()
         cls.driver.implicitlu_wait(10)
+
 
 
     @classmethod
