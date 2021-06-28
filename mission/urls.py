@@ -27,6 +27,9 @@ urlpatterns = [
     path('logout/', views.logout),
 
     # project app urls
-    path('project/', include('project.urls'))
+    path('project/', include('project.urls')),
+
+    # api app urls， include api and case
+    path('api/', include('api.urls')),
 
 ]
