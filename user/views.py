@@ -27,6 +27,9 @@ def login(request):
             else:
                 return render(request, 'index.html', context)
 
+    else:
+        return render(request, 'index.html', context)
+
 
 
 
