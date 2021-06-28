@@ -4,11 +4,11 @@
     <form class="form-signin" action="/login/" method="post">
         <h2 class="form-signin-heading text-center">Mission</h2>
         <label for="inputEmail" class="sr-only">username</label>
-        <input type="text" id="inputUsername" name="username" class="form-control" placeholder="username" required autofocus>
+        <input type="text" id="inputUsername" name="username" class="form-control" placeholder="username">
         <label for="inputPassword" class="sr-only" >password</label>
-        <input type="password" id="inputPassword" name="password" style="margin-top: 5px" class="form-control" placeholder="password" required>
-        <p class="text-center bg-danger">{{ error }}</p>
-        <button class="btn btn-primary btn-block" type="submit">Sign in</button>
+        <input type="password" id="inputPassword" name="password" style="margin-top: 5px" class="form-control" placeholder="password">
+        <p class="text-center bg-danger" id="error">{{ error }}</p>
+        <button class="btn btn-primary btn-block" type="submit" id="login">Sign in</button>
     </form>
 </div>
 {% endblock %}
