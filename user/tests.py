@@ -1,6 +1,9 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 from django.test import Client
+# 模版Template测试导入的相关的包
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from selenium.webdriver import Chrome
 
 
 # Create your tests here.
@@ -112,3 +115,35 @@ class LogoutTestCase(TestCase):
         response = self.client.get('/logout/')
         html_res = response.content.decode('utf-8')
         self.assertEqual(response.status_code, 302)
+
+
+# 针对模版Template测试
+class LoginTemplateTestCase(StaticLiveServerTestCase):
+    # fixtures = ['user-data.json']
+    
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.driver = Chrome()
+        cls.driver.implicitlu_wait(10)
+
+
+    @classmethod
+    def tearDown(cls):
+        cls.driver.quit()
+        super.tearDownCase()
+
+
+    def test_login_template(self):
+        self.driver.get('%s%s'%(self.live_server_url, '/'))
+        username_input = self.driver.find_element_by_name('username')
+        username_input.send_keys('')
+        password_input = self.driver.find_element_by_name('password')
+        password_input.send_keys('')
+        # sleep(1)
+
+        self.driver.find_element_by_id('login').click()
+        tips = self.driver.find_element_by_id('error')
+        print(tips)
+        self.assertEqual(tips, '用户名或密码为空')
+        # sleep()
