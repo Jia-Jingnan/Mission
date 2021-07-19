@@ -1,10 +1,15 @@
 #### 平台包含的几个模块：  
 user：用户登陆，密码修改，基于用户的所属用例的展示
 projec：项目和模块
-    url: /project/list
-         /project/add
-         /project/edit/1
-         /project/delete/1
+    url: /project/list/
+         /project/add/
+         /project/edit/1/
+         /project/delete/1/
 api：接口用例，测试任务
+    url: /api/case/list/
+         /api/case/add/
+         /api/case/edit/1/
+         /api/case/delete/1/
+        
 util：测试工具， 包括json格式化，在线对比工具，md5加密，正则表达式查询
 json提取期，常用函数，电话号码生成器等
