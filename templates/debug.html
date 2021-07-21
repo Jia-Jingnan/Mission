@@ -15,8 +15,10 @@
                     </select>
 
                     <label style="float: left;">模块：</label>
-                    <select class="form-control select2-single" id="module_name"
-                            style="width: 100%; margin-bottom: 10px;"></select>
+                    <!--<select class="form-control select2-single" id="module_name"
+                            style="width: 100%; margin-bottom: 10px;"></select>-->
+                    <div id="module_name">{{ form.module }}</div>
+
                 </div>
 
                 <div class="input-group">
@@ -43,7 +45,7 @@
                 <div style="margin-top: 10px;">
                     <label>参数类型：</label>
                     <label class="radio-inline">
-                        <input type="radio" name="req_type" id="from" value="from" checked> form-data
+                        <input type="radio" name="req_type" id="form" value="form" checked> form-data
                     </label>
                     <label class="radio-inline">
                         <input type="radio" name="req_type" id="json" value="json"> JSON
@@ -107,7 +109,7 @@
                 let header = $("#req_header").val();
                 let parameter = $("#req_parameter").val();
                 // console.log(header);
-                console.log(url);
+                // console.log(url);
 
                 if(url === ""){
                     window.alert("请求的URL不能为空");
@@ -127,18 +129,20 @@
                     "req_header": header,
                     "req_parameter": parameter
                 }, function (resp) {
-                    if(resp.success === "true"){
+                    /*if(resp != null){
                         $("#result").html(resp.data);
                     }else{
                         window.alert(resp.message);
-                    }
+                    }*/
+                    $("#result").html(resp);
                 });
 
             });
 
             // 更新
             $("#update").click(function () {
-                let module_name = $('select[id="module_name"]').val();
+                // let module_name = $('select[id="module_name"]').val();
+                let module_id = $('select[name="module"]').val();
                 let name = $("#req_name").val();
                 let url = $("#req_url").val();
                 let method = $('input[name="req_method"]:checked').val();
@@ -146,6 +150,7 @@
                 let req_type = $('input[name="req_type"]:checked').val();
                 let header = $("#req_header").val();
                 let assert_text = $("#assert_text").val();
+                console.log(module_id);
 
                 if (name === "") {
                     window.alert("名称不能为空");
@@ -159,14 +164,14 @@
 
                 // 保存用例接口
                 $.post("/api/update/", {
-                    "cid": case_id,
+                    // "cid": case_id,
                     "name": name,
                     "req_url": url,
                     "req_method": method,
                     "req_parameter": parameter,
                     "req_type": req_type,
                     "header": header,
-                    "module": module_name,
+                    "module": module_id,
                     "assert_text": assert_text,
                 }, function (resp) {
                     if(resp.success === "true"){
