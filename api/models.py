@@ -5,7 +5,6 @@ from project.models import Project, Module
 # 表名 user_project
 class Api(models.Model):
     # 会自动添加自增长的id
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
     module = models.ForeignKey(Module, on_delete=models.CASCADE)
     name = models.CharField('接口名称', max_length=100, blank=False, default="")
     url = models.CharField('接口地址', max_length=100, default="")
